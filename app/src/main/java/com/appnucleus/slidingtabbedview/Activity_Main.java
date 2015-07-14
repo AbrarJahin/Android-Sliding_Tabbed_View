@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 /*
 *   SlidingTabLayout.java
 *       &
@@ -19,13 +21,12 @@ import android.view.MenuItem;
 public class Activity_Main extends ActionBarActivity
 {
     // Declaring Your View and Variables
-    Toolbar toolbar;
-    ViewPager pager;
-    Adapter_ViewPager adapter;
-    SlidingTabLayout tabs;
+    private Toolbar toolbar;
+    private ViewPager pager;
+    private Adapter_ViewPager adapter;
+    private SlidingTabLayout tabs;
 
-    CharSequence Titles[]={"Home","Events","Tab New"};
-    int Numboftabs =3;
+    private ArrayList<Model_TabHolder> tabElements = new ArrayList<Model_TabHolder>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,8 +38,10 @@ public class Activity_Main extends ActionBarActivity
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        SetTabContents();
+
         // Creating The Adapter_ViewPager and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new Adapter_ViewPager(getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new Adapter_ViewPager(getSupportFragmentManager(),tabElements);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
@@ -60,6 +63,20 @@ public class Activity_Main extends ActionBarActivity
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
+    }
+
+    void SetTabContents()
+    {
+        String[]    Titles      =   {"Events","Home","Events","Tab New","Tab Old"};
+        String[]    packages    =   {"com.appnucleus.slidingtabbedview.Tab1","com.appnucleus.slidingtabbedview.Tab1","com.appnucleus.slidingtabbedview.Tab2","com.appnucleus.slidingtabbedview.Tab3","com.appnucleus.slidingtabbedview.Tab1"};
+
+        for (int i=0;i<packages.length && i<Titles.length;i++)
+        {
+            final Model_TabHolder temp_data = new Model_TabHolder();
+            temp_data.set_Class(packages[i]);
+            temp_data.set_Title(Titles[i].toString());
+            tabElements.add(temp_data);
+        }
     }
 
     @Override
