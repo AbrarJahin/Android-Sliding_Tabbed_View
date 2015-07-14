@@ -1,6 +1,5 @@
 package com.appnucleus.slidingtabbedview;
 
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -23,30 +22,33 @@ public class Adapter_ViewPager extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        switch (position+1)
+        String className="";
+        Object tab_to_return = null;
+        try
         {
-            case 1:
-                Tab1 tab1 = new Tab1();
-                return tab1;
-            case 2:
-                Tab2 tab2 = new Tab2();
-                return tab2;
-            case 3:
-                Tab3 tab3 = new Tab3();
-                /*String className = "Tab3";
-                Object tab3 = null;
-                try {
-                    tab3 = Class.forName(className).newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }*/
-                return (Fragment) tab3;
-            default: return null;
+            switch (position+1)
+            {
+                case 1:
+                    className = "com.appnucleus.slidingtabbedview.Tab1";
+                    break;
+                case 2:
+                    className = "com.appnucleus.slidingtabbedview.Tab2";
+                    break;
+                case 3:
+                    className = "com.appnucleus.slidingtabbedview.Tab3";
+                    break;
+                default:
+                    className=null;
+            }
+            tab_to_return = Class.forName(className).newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return (Fragment) tab_to_return;
     }
 
     // This method return the titles for the Tabs in the Tab Strip
