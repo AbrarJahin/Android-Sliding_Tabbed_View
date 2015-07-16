@@ -25,7 +25,6 @@ public class Activity_Main extends ActionBarActivity
     private ViewPager pager;
     private Adapter_ViewPager adapter;
     private SlidingTabLayout tabs;
-
     private ArrayList<Model_TabHolder> tabElements = new ArrayList<Model_TabHolder>();
 
     @Override
